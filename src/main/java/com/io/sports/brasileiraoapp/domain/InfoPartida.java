@@ -38,6 +38,6 @@ public class InfoPartida {
     @ElementCollection
     @CollectionTable(name = "autor_gol_visitante",joinColumns = @JoinColumn(name = "numeropartida_id"))
     private List<String> autorGolVisitante;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Competicao competicao;
 }

@@ -55,13 +55,10 @@ public class LoadDados {
             thread1.start();
             //thread2.start();
 
-            mapa.put("lista1", thread1.getLista());
+            //mapa.put("lista1", thread1.getLista());
             //mapa.put("lista2", thread2.getLista());
 
-            for(InfoPartida ip : mapa.get("lista1")){
-                service.save(ip.getCompeticao());
-                service.save(ip);
-            }
+
             /*
             for(InfoPartida ip : mapa.get("lista2")){
                 service.save(ip.getCompeticao());

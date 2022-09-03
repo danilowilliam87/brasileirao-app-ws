@@ -2,6 +2,8 @@ package com.io.sports.brasileiraoapp.bot;
 
 import com.io.sports.brasileiraoapp.domain.Competicao;
 import com.io.sports.brasileiraoapp.domain.InfoPartida;
+import com.io.sports.brasileiraoapp.repository.InfoPartidasRepository;
+import com.io.sports.brasileiraoapp.service.InfoPartidasService;
 import com.io.sports.brasileiraoapp.util.LeitorUrlProps;
 import com.io.sports.brasileiraoapp.util.ScrappingUtil;
 import lombok.*;
@@ -10,6 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +32,10 @@ public class BotInfoPartida {
     private int numeroPartida;
     private String urlSerie;
     private Document document;
-
+    @Autowired
+    private InfoPartidasService service;
+    @Autowired
+    private InfoPartidasRepository repository;
     private String ano;
     private static final Logger LOGGER = LoggerFactory.getLogger(BotInfoPartida.class);
 
@@ -228,8 +235,6 @@ public class BotInfoPartida {
 
     public InfoPartida getInfoPartida(){
         try {
-            int tempo = (int) (Math.ceil(Math.random() * 5000));
-            Thread.sleep(tempo);
             if(!abrirConexao(this.urlSerie, this.ano, this.numeroPartida)){
                throw new RuntimeException("Erro ao abrir conexão com a página alvo!");
             }else {
@@ -247,6 +252,7 @@ public class BotInfoPartida {
                 this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
                 this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
                 this.infoPartida.setCompeticao(competicao);
+
                 return this.infoPartida;
             }
         }catch (Exception e){

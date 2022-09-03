@@ -16,10 +16,10 @@ public class InfoPartidasService {
     private CompeticaoRepository competicaoRepository;
 
     public void save(InfoPartida infoPartida){
-        infoPartidasRepository.save(infoPartida);
+        this.infoPartidasRepository.save(infoPartida);
     }
     public void save(Competicao competicao){
-        competicaoRepository.save(competicao);
+        this.competicaoRepository.save(competicao);
     }
 
 

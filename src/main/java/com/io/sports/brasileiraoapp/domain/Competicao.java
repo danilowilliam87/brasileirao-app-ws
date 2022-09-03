@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Data
 @EqualsAndHashCode
 @ToString
-@Entity(name = "competicaop")
+@Entity(name = "competicao")
 public class Competicao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
