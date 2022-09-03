@@ -36,14 +36,14 @@ public class BotInfoPartida {
         this.urlSerie = url;
         this.ano = ano;
         this.numeroPartida = numeroPartida;
-        abrirConexao(this.urlSerie, this.ano, this.numeroPartida);
+
     }
 
     public BotInfoPartida(){
 
     }
 
-    public void abrirConexao(String urlSerie, String ano, int numeroPartida) {
+    public boolean abrirConexao(String urlSerie, String ano, int numeroPartida) {
         try {
             this.urlSerie = urlSerie;
             this.numeroPartida = numeroPartida;
@@ -52,9 +52,11 @@ public class BotInfoPartida {
             String urlCompleta = url.concat(parametros);
             this.document = Jsoup.connect(urlCompleta).get();
             LOGGER.info("Conexão realizada com sucesso!");
+            return true;
         } catch (Exception e) {
             LOGGER.error("Erro ao conectar : " + e.getMessage());
         }
+        return false;
     }
 
     public String getMandante() {
@@ -118,22 +120,19 @@ public class BotInfoPartida {
 
             if (golsMandante == 1) {
                 String autorGol = this.document.select("div[class=hidden-sm hidden-md hidden-lg m-t-20]")
-                        .first()
-                        .select("p[class=time-jogador]")
+                        .select("p")
                         .first()
                         .text();
+                LOGGER.info("Autor de Gols time Mandante: " + autorGol);
                 listaGols.add(autorGol);
-                LOGGER.info("Autor(es) de Gols na partida: " + listaGols.toString());
             } else if (golsMandante > 1) {
                 for (int i = 0; i < golsMandante; i++) {
                     String autorGol = this.document.select("div[class=hidden-sm hidden-md hidden-lg m-t-20]")
-                            .first()
-                            .select("p[class=time-jogador]")
+                            .select("p")
                             .get(i)
                             .text();
+                    LOGGER.info("Autor de Gols time Mandante: " + autorGol);
                     listaGols.add(autorGol);
-                    LOGGER.info("Autor(es) de Gols na partida: " + listaGols.toString());
-
                 }
             }
             return listaGols;
@@ -148,22 +147,21 @@ public class BotInfoPartida {
             int golsVisitante = Integer.parseInt(golsTimeVisitante());
 
             if (golsVisitante == 1) {
-                String autorGol = this.document.select("div[class=hidden-sm hidden-md hidden-lg m-t-20]")
-                        .get(1)
+                String autorGol = this.document.select("div[class=col-xs-3 col-sm-3 text-right hidden-xs]")
                         .select("p[class=time-jogador]")
                         .first()
                         .text();
+                LOGGER.info("Autor de Gols time Visitante: " + autorGol);
                 listaGols.add(autorGol);
-                LOGGER.info("Autor(es) de Gols na partida: " + listaGols.toString());
+
             } else if (golsVisitante > 1) {
                 for (int i = 0; i < golsVisitante; i++) {
-                    String autorGol = this.document.select("div[class=hidden-sm hidden-md hidden-lg m-t-20]")
-                            .get(1)
-                            .select("p[class=time-jogador]")
+                    String autorGol = this.document.select("div[class=col-xs-3 col-sm-3 text-right hidden-xs]")
+                            .select("p")
                             .get(i)
                             .text();
+                    LOGGER.info("Autor de Gols time Visitante: " + autorGol);
                     listaGols.add(autorGol);
-                    LOGGER.info("Autor(es) de Gols na partida: " + listaGols.toString());
                 }
             }
             return listaGols;
@@ -230,18 +228,27 @@ public class BotInfoPartida {
 
     public InfoPartida getInfoPartida(){
         try {
-            this.infoPartida = new InfoPartida();
-            this.infoPartida.setTimeMandante(getMandante());
-            this.infoPartida.setTimeVisitante(getVisitante());
-            this.infoPartida.setDataPartida(getDataPartida());
-            this.infoPartida.setLocalDaPartida(getLocalDaPartida());
-            this.infoPartida.setHorarioPartida(getHoraPartida());
-            this.infoPartida.setGolsMandante(Integer.parseInt(golsTimeMandate()));
-            this.infoPartida.setGolsVisitante(Integer.parseInt(golsTimeVisitante()));
-            this.infoPartida.setAutorGolMandate(getAutorGolTimeMandante());
-            this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
-            this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
-            return this.infoPartida;
+            int tempo = (int) (Math.ceil(Math.random() * 5000));
+            Thread.sleep(tempo);
+            if(!abrirConexao(this.urlSerie, this.ano, this.numeroPartida)){
+               throw new RuntimeException("Erro ao abrir conexão com a página alvo!");
+            }else {
+                this.competicao = new Competicao();
+                this.competicao.setNome(getCompeticao());
+                this.infoPartida = new InfoPartida();
+                this.infoPartida.setTimeMandante(getMandante());
+                this.infoPartida.setTimeVisitante(getVisitante());
+                this.infoPartida.setDataPartida(getDataPartida());
+                this.infoPartida.setLocalDaPartida(getLocalDaPartida());
+                this.infoPartida.setHorarioPartida(getHoraPartida());
+                this.infoPartida.setGolsMandante(Integer.parseInt(golsTimeMandate()));
+                this.infoPartida.setGolsVisitante(Integer.parseInt(golsTimeVisitante()));
+                this.infoPartida.setAutorGolMandate(getAutorGolTimeMandante());
+                this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
+                this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
+                this.infoPartida.setCompeticao(competicao);
+                return this.infoPartida;
+            }
         }catch (Exception e){
             throw new RuntimeException(e);
         }

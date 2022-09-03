@@ -46,12 +46,29 @@ public class LoadDados {
 
     }
 
-    public void loadAndTest(){
-        thread1 = new InfoPartidaThread(urlSerieA, ano, 1, 40 );
-        thread1.start();
-        mapa.put("lista1", thread1.getLista());
-        for(InfoPartida ip : mapa.get("lista1")){
-            service.save(ip);
+    public void loadAndSave(){
+        try {
+
+            thread1 = new InfoPartidaThread(urlSerieA, ano, 1, 125 );
+            //thread2 = new InfoPartidaThread(urlSerieA, ano, 126, 240 );
+
+            thread1.start();
+            //thread2.start();
+
+            mapa.put("lista1", thread1.getLista());
+            //mapa.put("lista2", thread2.getLista());
+
+            for(InfoPartida ip : mapa.get("lista1")){
+                service.save(ip.getCompeticao());
+                service.save(ip);
+            }
+            /*
+            for(InfoPartida ip : mapa.get("lista2")){
+                service.save(ip.getCompeticao());
+                service.save(ip);
+            }*/
+        }catch (Exception exception){
+
         }
     }
 
