@@ -228,20 +228,20 @@ public class BotInfoPartida {
 
     }
 
-    public InfoPartida getInfoPartida(String urlSerie, String ano, int numeroPartida){
+    public InfoPartida getInfoPartida(){
         try {
-            abrirConexao(urlSerie, ano, numeroPartida);
-            infoPartida.setTimeMandante(getMandante());
-            infoPartida.setTimeVisitante(getVisitante());
-            infoPartida.setDataPartida(getDataPartida());
-            infoPartida.setLocalDaPartida(getLocalDaPartida());
-            infoPartida.setHorarioPartida(getHoraPartida());
-            infoPartida.setGolsMandante(Integer.parseInt(golsTimeMandate()));
-            infoPartida.setGolsVisitante(Integer.parseInt(golsTimeVisitante()));
-            infoPartida.setAutorGolMandate(getAutorGolTimeMandante());
-            infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
-            infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
-            return infoPartida;
+            this.infoPartida = new InfoPartida();
+            this.infoPartida.setTimeMandante(getMandante());
+            this.infoPartida.setTimeVisitante(getVisitante());
+            this.infoPartida.setDataPartida(getDataPartida());
+            this.infoPartida.setLocalDaPartida(getLocalDaPartida());
+            this.infoPartida.setHorarioPartida(getHoraPartida());
+            this.infoPartida.setGolsMandante(Integer.parseInt(golsTimeMandate()));
+            this.infoPartida.setGolsVisitante(Integer.parseInt(golsTimeVisitante()));
+            this.infoPartida.setAutorGolMandate(getAutorGolTimeMandante());
+            this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
+            this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
+            return this.infoPartida;
         }catch (Exception e){
             throw new RuntimeException(e);
         }

@@ -16,7 +16,6 @@ import java.util.List;
 public class InfoPartidaThread extends Thread{
     BotInfoPartida botInfoPartida;
     List<InfoPartida> lista = new ArrayList<>();
-
     private String urlSerie;
     private String ano;
     private int numeroPartida;
@@ -24,10 +23,9 @@ public class InfoPartidaThread extends Thread{
     private int ultimoJogo;
 
     public InfoPartidaThread(){}
-    public InfoPartidaThread(String urlSerie, String ano, int numeroPartida, int primeiroJogo, int ultimoJogo){
+    public InfoPartidaThread(String urlSerie, String ano, int primeiroJogo, int ultimoJogo){
         this.urlSerie = urlSerie;
         this.ano = ano;
-        this.numeroPartida = numeroPartida;
         this.primeiroJogo = primeiroJogo;
         this.ultimoJogo = ultimoJogo;
     }
@@ -36,7 +34,7 @@ public class InfoPartidaThread extends Thread{
         return botInfoPartida.getInfoPartida();
     }
 
-    public void getJogosPorTemporada(String urlSerie, String ano, int numeroPartida,
+    public void getJogosPorTemporada(String urlSerie, String ano,
                                      int primeiroJogo, int ultimoJogo){
         for(int i = primeiroJogo; i<= ultimoJogo; i++){
             this.lista.add(getInfoPartida(urlSerie, ano, i));
@@ -45,6 +43,6 @@ public class InfoPartidaThread extends Thread{
 
     @Override
     public void run() {
-        getJogosPorTemporada(this.urlSerie, this.ano, this.numeroPartida, this.primeiroJogo, this.ultimoJogo);
+        getJogosPorTemporada(this.urlSerie, this.ano, this.primeiroJogo, this.ultimoJogo);
     }
 }
