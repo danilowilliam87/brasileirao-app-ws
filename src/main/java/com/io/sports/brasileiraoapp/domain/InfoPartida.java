@@ -34,7 +34,7 @@ public class InfoPartida {
     private int golsVisitante;
     @ElementCollection
     @CollectionTable(name = "autor_gol_mandante",joinColumns = @JoinColumn(name = "numeropartida_id"))
-    private List<String> autorGolMandate;
+    private List<String> autorGolMandante;
     @ElementCollection
     @CollectionTable(name = "autor_gol_visitante",joinColumns = @JoinColumn(name = "numeropartida_id"))
     private List<String> autorGolVisitante;

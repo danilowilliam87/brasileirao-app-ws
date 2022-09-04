@@ -19,28 +19,26 @@ public class ExecutaLoadDados implements ApplicationRunner {
     @Autowired
     private InfoPartidasRepository repository;
 
-    public void save(){
-        try{
-            for(int i = 1; i <= 125; i++){
+    public void save() {
+        try {
+            int i = this.repository.findAll().size() + 1;
+            for (; i <= 130; i++) {
+                LOGGER.info("numero da partida a ser buscada : " + i);
                 BotInfoPartida infoPartida = new BotInfoPartida("urlSerieA", "2022", i);
                 this.repository.save(infoPartida.getInfoPartida());
                 LOGGER.info("Confronto : " + infoPartida.getMandante() + " x " + infoPartida.getVisitante());
                 LOGGER.info("Salvo Com Sucesso!");
             }
-        }catch (Exception e){
+            LOGGER.info("Total de Jogos no Banco de Dados : " + (i - 1));
+            LOGGER.info("Jogos referentes a 1ª até a " + (i / 10) + "ª Rodada do Campeonato Brasileiro 2022");
+        } catch (Exception e) {
             LOGGER.error("Erro : " + e.getMessage());
+            save();
         }
     }
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-         try {
-             save();
-         }catch (Exception e){
-             try {
-                 save();
-             }catch (Exception exception){
-                 exception.printStackTrace();
-             }
-         }
+        save();
     }
 }

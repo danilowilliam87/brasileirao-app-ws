@@ -155,7 +155,7 @@ public class BotInfoPartida {
 
             if (golsVisitante == 1) {
                 String autorGol = this.document.select("div[class=col-xs-3 col-sm-3 text-right hidden-xs]")
-                        .select("p[class=time-jogador]")
+                        .select("p")
                         .first()
                         .text();
                 LOGGER.info("Autor de Gols time Visitante: " + autorGol);
@@ -248,7 +248,7 @@ public class BotInfoPartida {
                 this.infoPartida.setHorarioPartida(getHoraPartida());
                 this.infoPartida.setGolsMandante(Integer.parseInt(golsTimeMandate()));
                 this.infoPartida.setGolsVisitante(Integer.parseInt(golsTimeVisitante()));
-                this.infoPartida.setAutorGolMandate(getAutorGolTimeMandante());
+                this.infoPartida.setAutorGolMandante(getAutorGolTimeMandante());
                 this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
                 this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
                 this.infoPartida.setCompeticao(competicao);
