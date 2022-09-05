@@ -33,7 +33,6 @@ public class InfoPartidaRepositoryTest {
         Assertions.assertEquals(10, lista.size());
         LOGGER.info("partida : " + partida);
     }
-
     /*
     * "Corinthians - SP"
     * "Internacional - RS"
@@ -44,5 +43,12 @@ public class InfoPartidaRepositoryTest {
         Assertions.assertEquals(2, lista.size());
         Assertions.assertEquals(2, lista.get(0).getGolsMandante());
         Assertions.assertEquals(2, lista.get(1).getGolsVisitante());
+    }
+    @Test
+    public void buscarConfrontos2(){
+        List<InfoPartida> lista = this.repository.findConfrontosByCompeticao(1L,"Botafogo - RJ", "Corinthians - SP");
+        Assertions.assertEquals(2, lista.size());
+        Assertions.assertEquals(3, lista.get(0).getGolsVisitante());
+        Assertions.assertEquals(0, lista.get(1).getGolsVisitante());
     }
 }

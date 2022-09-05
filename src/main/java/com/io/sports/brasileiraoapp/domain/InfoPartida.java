@@ -17,8 +17,10 @@ import java.util.Set;
 @ToString
 @Entity(name = "info_partidas")
 public class InfoPartida implements Serializable {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "numero_partida")
     private Long numeroPartida;
     @Column(name = "time_mandante", nullable = false)
     private String timeMandante;

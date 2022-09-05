@@ -28,15 +28,17 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
                                      @Param("timeA") String timeA,
                                      @Param("timeB") String timeB);
 
-    /*
-    @Query("select i from InfoPartida i where i.competicao.id :idCompeticao " +
-            "and i.timeMandante :timeA" +
-            "and i.timeVisitante :timeB " +
-            "or i.timeMandante :timeB " +
-            "and i.timeVisitante :timeA")
+
+    @Query("select i from info_partidas i where i.competicao.id = :idCompeticao " +
+            "and i.timeMandante = :timeA " +
+            "and i.timeVisitante = :timeB " +
+            "or i.timeMandante = :timeB " +
+            "and i.timeVisitante = :timeA")
     List<InfoPartida> findConfrontosByCompeticao(@Param("idCompeticao") Long idCompeticao,
                                                  @Param("timeA") String timeA,
                                                  @Param("timeB") String timeB);
+
+    /*
 
     @Query("select i from InfoPartida i where i.competicao.id :idCompeticao " +
             "and i.timeMandante :timeA " +
