@@ -28,6 +28,19 @@ public class InfoPartidaControllerTest {
                 .get("http://localhost:8080/info-partidas/240")
                 .then()
                 .body("timeMandante", IsEqual.equalTo("Coritiba - PR"));
-
     }
+
+    @Test
+    public void testeFindByNumeroPartidaAndCompeticao() {
+        RestAssured
+                .given()
+                .port(porta)
+                .when()
+                .get("http://localhost:8080/info-partidas?numero-partida=100&competicao-id=1")
+                .then()
+                .body("timeMandante", IsEqual.equalTo("Coritiba - PR"))
+                .body("localDaPartida", IsEqual.equalTo("Couto Pereira - Curitiba - PR"));
+    }
+
+
 }
