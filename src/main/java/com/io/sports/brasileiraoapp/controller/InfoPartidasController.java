@@ -15,8 +15,5 @@ public class InfoPartidasController {
     @Autowired
     private InfoPartidasService service;
 
-    @GetMapping("/{id}")
-    public InfoPartida findPartidaById(Long id){
-        return service.findPartidaById(id);
-    }
+
 }

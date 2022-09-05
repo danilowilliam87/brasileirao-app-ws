@@ -69,25 +69,6 @@ public class LoadDados {
         }
     }
 
-    public void saveData(){
-        for(InfoPartida ip : mapa.get("lista1")){
-            service.save(ip);
-        }
 
-        for(InfoPartida ip : mapa.get("lista2")){
-            service.save(ip);
-        }
 
-        for(InfoPartida ip : mapa.get("lista3")){
-            service.save(ip);
-        }
-
-        for(InfoPartida ip : mapa.get("lista4")){
-            service.save(ip);
-        }
-
-        for(InfoPartida ip : mapa.get("lista5")){
-            service.save(ip);
-        }
-    }
 }
