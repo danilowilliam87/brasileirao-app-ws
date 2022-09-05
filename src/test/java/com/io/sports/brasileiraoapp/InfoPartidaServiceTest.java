@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @SpringBootTest
 public class InfoPartidaServiceTest {
@@ -23,6 +23,7 @@ public class InfoPartidaServiceTest {
         Assertions.assertEquals("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE A - 2022",competicao.getNome());
     }
 
+
     @Test
     public void buscaCompeticao2(){
         Competicao competicao = new Competicao();
@@ -36,4 +37,5 @@ public class InfoPartidaServiceTest {
         lista = this.service.findAllCompeticao();
         Assertions.assertEquals(1, lista.size());
     }
+
 }
