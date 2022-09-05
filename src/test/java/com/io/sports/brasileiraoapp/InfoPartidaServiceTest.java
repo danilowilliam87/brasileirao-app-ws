@@ -64,4 +64,17 @@ public class InfoPartidaServiceTest {
         Assertions.assertEquals("Couto Pereira - Curitiba - PR", partida.getLocalDaPartida());
     }
 
+    @Test
+    public void findPartidasByRodadaTest(){
+        List<InfoPartida> partidas = new ArrayList<>();
+        partidas = this.service.findPartidasByRodada(1, 1L);
+        Assertions.assertEquals(0,partidas.get(1).getGolsVisitante());
+    }
+    @Test
+    public void findPartidasByAnoTest(){
+        List<InfoPartida> partidas = new ArrayList<>();
+        partidas = this.service.findPartidasByAno("2022", "Coritiba - PR", "Atlético - GO");
+        Assertions.assertEquals(1, partidas.size());
+    }
+
 }
