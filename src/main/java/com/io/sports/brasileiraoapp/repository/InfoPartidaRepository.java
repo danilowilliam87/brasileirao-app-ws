@@ -15,8 +15,8 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
             " and i.numeroPartida >= :primeiroJogo " +
             " and i.numeroPartida <= :ultimoJogo")
     List<InfoPartida> buscarJogosPorRodada(@Param("idCompeticao") Long idCompeticao,
-                                      @Param("primeiroJogo") Long primeiroJogo,
-                                      @Param("ultimoJogo") Long ultimoJogo);
+                                           @Param("primeiroJogo") Long primeiroJogo,
+                                           @Param("ultimoJogo") Long ultimoJogo);
 
 
     @Query("select i from info_partidas i where i.dataPartida like %:ano " +
@@ -38,23 +38,11 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
                                                  @Param("timeA") String timeA,
                                                  @Param("timeB") String timeB);
 
-    /*
 
-    @Query("select i from InfoPartida i where i.competicao.id :idCompeticao " +
-            "and i.timeMandante :timeA " +
-            "and i.timeVisitante :timeB " +
-            "or i.timeMandante :timeB " +
-            "and i.timeVisitante :timeA")
-    List<InfoPartida> findConfrontosByCompeticaoAndAno(@Param("idCompeticao") Long idCompeticao,
-                                                       @Param("timeA") String timeA,
-                                                       @Param("timeB") String timeB);
-
-    @Query("select i from InfoPartida i where i.competicao.id = :idCompeticao " +
+    @Query("select i from info_partidas i where i.competicao.id = :idCompeticao " +
             "and i.numeroPartida = :numeroPartida")
     InfoPartida findPartidabyNumeroAndCompeticao(@Param("numeroPartida") Long numeroPartida,
-                                          @Param("idCompeticao") Long idCompeticao);
-                                          */
-
+                                                 @Param("idCompeticao") Long idCompeticao);
 
 
 }

@@ -51,4 +51,14 @@ public class InfoPartidaRepositoryTest {
         Assertions.assertEquals(3, lista.get(0).getGolsVisitante());
         Assertions.assertEquals(0, lista.get(1).getGolsVisitante());
     }
+
+    @Test
+    public void buscarConfronto3(){
+        InfoPartida partida = new InfoPartida();
+        partida = this.repository.findPartidabyNumeroAndCompeticao(11L, 1L);
+        Assertions.assertEquals("América Fc Saf - MG", partida.getTimeMandante());
+        Assertions.assertEquals("Juventude - RS", partida.getTimeVisitante());
+        Assertions.assertEquals(4, partida.getGolsMandante());
+        Assertions.assertEquals(1, partida.getGolsVisitante());
+    }
 }
