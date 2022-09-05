@@ -77,4 +77,11 @@ public class InfoPartidaServiceTest {
         Assertions.assertEquals(1, partidas.size());
     }
 
+    @Test
+    public void findPartidasByAnoAndCompeticaoTest(){
+        List<InfoPartida> partidas = new ArrayList<>();
+        partidas = this.service.findPartidasByAnoAndCompeticao(1L, "Bahia - BA", "Vitoria - BA");
+        Assertions.assertEquals(0, partidas.size());
+    }
+
 }
