@@ -2,7 +2,7 @@ package com.io.sports.brasileiraoapp;
 
 import com.io.sports.brasileiraoapp.bot.BotInfoPartida;
 import com.io.sports.brasileiraoapp.domain.InfoPartida;
-import com.io.sports.brasileiraoapp.repository.InfoPartidasRepository;
+import com.io.sports.brasileiraoapp.repository.InfoPartidaRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -18,7 +18,7 @@ public class InfoPartidasRepositoryTest {
     private BotInfoPartida bot3;
 
     @Autowired
-    private InfoPartidasRepository repository;
+    private InfoPartidaRepository repository;
 
     @BeforeAll
     public void loadObject(){

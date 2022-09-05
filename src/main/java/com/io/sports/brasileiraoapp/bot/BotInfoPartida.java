@@ -2,22 +2,20 @@ package com.io.sports.brasileiraoapp.bot;
 
 import com.io.sports.brasileiraoapp.domain.Competicao;
 import com.io.sports.brasileiraoapp.domain.InfoPartida;
-import com.io.sports.brasileiraoapp.repository.InfoPartidasRepository;
+import com.io.sports.brasileiraoapp.repository.InfoPartidaRepository;
 import com.io.sports.brasileiraoapp.service.InfoPartidasService;
 import com.io.sports.brasileiraoapp.util.LeitorUrlProps;
-import com.io.sports.brasileiraoapp.util.ScrappingUtil;
 import lombok.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -35,7 +33,7 @@ public class BotInfoPartida {
     @Autowired
     private InfoPartidasService service;
     @Autowired
-    private InfoPartidasRepository repository;
+    private InfoPartidaRepository repository;
     private String ano;
     private static final Logger LOGGER = LoggerFactory.getLogger(BotInfoPartida.class);
 
@@ -120,9 +118,9 @@ public class BotInfoPartida {
         }
     }
 
-    public List<String> getAutorGolTimeMandante() {
+    public Set<String> getAutorGolTimeMandante() {
         try {
-            List<String> listaGols = new ArrayList<>();
+            Set<String> listaGols = new HashSet<>();
             int golsMandante = Integer.parseInt(golsTimeMandate());
 
             if (golsMandante == 1) {
@@ -148,9 +146,9 @@ public class BotInfoPartida {
         }
     }
 
-    public List<String> getAutorGolTimeVisitante() {
+    public Set<String> getAutorGolTimeVisitante() {
         try {
-            List<String> listaGols = new ArrayList<>();
+            Set<String> listaGols = new HashSet<>();
             int golsVisitante = Integer.parseInt(golsTimeVisitante());
 
             if (golsVisitante == 1) {
@@ -238,8 +236,8 @@ public class BotInfoPartida {
             if(!abrirConexao(this.urlSerie, this.ano, this.numeroPartida)){
                throw new RuntimeException("Erro ao abrir conexão com a página alvo!");
             }else {
-                this.competicao = new Competicao();
-                this.competicao.setNome(getCompeticao());
+                //this.competicao = new Competicao();
+                //this.competicao.setNome(getCompeticao());
                 this.infoPartida = new InfoPartida();
                 this.infoPartida.setTimeMandante(getMandante());
                 this.infoPartida.setTimeVisitante(getVisitante());
@@ -251,8 +249,7 @@ public class BotInfoPartida {
                 this.infoPartida.setAutorGolMandante(getAutorGolTimeMandante());
                 this.infoPartida.setAutorGolVisitante(getAutorGolTimeVisitante());
                 this.infoPartida.setNumeroPartida(Long.valueOf(Integer.toString(this.getNumeroPartida())));
-                this.infoPartida.setCompeticao(competicao);
-
+                //this.infoPartida.setCompeticao(competicao);
                 return this.infoPartida;
             }
         }catch (Exception e){

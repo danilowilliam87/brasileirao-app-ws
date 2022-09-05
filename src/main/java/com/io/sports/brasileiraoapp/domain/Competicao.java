@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @NoArgsConstructor
 @Getter
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "competicao")
-public class Competicao {
+public class Competicao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

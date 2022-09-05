@@ -3,7 +3,9 @@ package com.io.sports.brasileiraoapp.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 
 @AllArgsConstructor
@@ -14,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "info_partidas")
-public class InfoPartida {
+public class InfoPartida implements Serializable {
 
     @Id
     private Long numeroPartida;
@@ -32,12 +34,12 @@ public class InfoPartida {
     private int golsMandante;
     @Column(name = "gols_visitante", nullable = false)
     private int golsVisitante;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "autor_gol_mandante",joinColumns = @JoinColumn(name = "numeropartida_id"))
-    private List<String> autorGolMandante;
-    @ElementCollection
+    private Set<String> autorGolMandante;
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "autor_gol_visitante",joinColumns = @JoinColumn(name = "numeropartida_id"))
-    private List<String> autorGolVisitante;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Set<String> autorGolVisitante;
+    @ManyToOne
     private Competicao competicao;
 }
