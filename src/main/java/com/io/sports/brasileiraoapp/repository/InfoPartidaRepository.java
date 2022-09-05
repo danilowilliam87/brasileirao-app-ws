@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> {
@@ -41,8 +42,8 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
 
     @Query("select i from info_partidas i where i.competicao.id = :idCompeticao " +
             "and i.numeroPartida = :numeroPartida")
-    InfoPartida findPartidabyNumeroAndCompeticao(@Param("numeroPartida") Long numeroPartida,
-                                                 @Param("idCompeticao") Long idCompeticao);
+    Optional<InfoPartida> findPartidaByNumeroAndCompeticao(@Param("numeroPartida") Long numeroPartida,
+                                                          @Param("idCompeticao") Long idCompeticao);
 
 
 }

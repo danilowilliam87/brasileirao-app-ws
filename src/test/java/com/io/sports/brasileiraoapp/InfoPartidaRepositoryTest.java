@@ -52,6 +52,8 @@ public class InfoPartidaRepositoryTest {
         Assertions.assertEquals(0, lista.get(1).getGolsVisitante());
     }
 
+
+    /*
     @Test
     public void buscarConfronto3(){
         InfoPartida partida = new InfoPartida();
@@ -61,4 +63,6 @@ public class InfoPartidaRepositoryTest {
         Assertions.assertEquals(4, partida.getGolsMandante());
         Assertions.assertEquals(1, partida.getGolsVisitante());
     }
+
+     */
 }
