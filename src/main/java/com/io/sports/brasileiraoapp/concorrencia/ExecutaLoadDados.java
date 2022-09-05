@@ -19,7 +19,7 @@ import java.util.Optional;
 @Configuration
 public class ExecutaLoadDados implements ApplicationRunner {
 
-    private LoadDados loadDados;
+
     Logger LOGGER = LoggerFactory.getLogger(ExecutaLoadDados.class);
     @Autowired
     private InfoPartidaRepository repository;
