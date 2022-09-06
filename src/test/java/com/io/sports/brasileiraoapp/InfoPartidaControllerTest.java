@@ -42,5 +42,19 @@ public class InfoPartidaControllerTest {
                 .body("localDaPartida", IsEqual.equalTo("Couto Pereira - Curitiba - PR"));
     }
 
+    @Test
+    public void findPartidasByRodadaTest(){
+        RestAssured
+                .given()
+                .port(porta)
+                .when()
+                .get("http://localhost:8080/info-partidas/jogos-rodada?rodada=1&idCompeticao=1")
+                .then()
+                .body("[0].timeMandante", IsEqual.equalTo("Atlético Mineiro - MG"))
+                .body("[0].timeVisitante", IsEqual.equalTo("Internacional - RS"));
+
+
+    }
+
 
 }
