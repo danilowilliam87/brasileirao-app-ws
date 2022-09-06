@@ -119,8 +119,8 @@ public class BotInfoPartida {
     }
 
     public Set<String> getAutorGolTimeMandante() {
+        Set<String> listaGols = new HashSet<>();
         try {
-            Set<String> listaGols = new HashSet<>();
             int golsMandante = Integer.parseInt(golsTimeMandate());
 
             if (golsMandante == 1) {
@@ -140,15 +140,17 @@ public class BotInfoPartida {
                     listaGols.add(autorGol);
                 }
             }
-            return listaGols;
+
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+        return listaGols;
         }
     }
 
     public Set<String> getAutorGolTimeVisitante() {
+        Set<String> listaGols = new HashSet<>();
         try {
-            Set<String> listaGols = new HashSet<>();
             int golsVisitante = Integer.parseInt(golsTimeVisitante());
 
             if (golsVisitante == 1) {
@@ -169,9 +171,11 @@ public class BotInfoPartida {
                     listaGols.add(autorGol);
                 }
             }
-            return listaGols;
+
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+        return listaGols;
         }
     }
 

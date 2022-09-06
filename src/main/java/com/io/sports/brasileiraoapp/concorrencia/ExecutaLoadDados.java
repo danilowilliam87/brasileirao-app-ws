@@ -36,41 +36,52 @@ public class ExecutaLoadDados implements ApplicationRunner {
         });
     }
 
-    public void save() {
+    public void save(String nomeCompeticao, String url, String ano) {
         try {
-            Competicao brasileiro2022 = new Competicao();
-            Competicao brasileiro2021 = new Competicao();
-            Optional<Competicao> busca = competicaoRepository.findByNome("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE A - 2021");
+            Competicao competicao = new Competicao();
+            int i = 0;
+            Optional<Competicao> busca = competicaoRepository.findByNome(nomeCompeticao);
             if(busca.isPresent()){
-                brasileiro2021 = busca.get();
+                competicao = busca.get();
             }else{
-                brasileiro2021.setNome("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE A - 2021");
+                competicao.setNome(nomeCompeticao);
+                this.competicaoRepository.save(competicao);
             }
-            int i = this.repository.findAll().size() + 1;
 
-            for (; i <= 250; i++) {
-                if(i == 245){
+            i = this.repository.findAllByCompeticao(competicao.getId()).size() + 1;
+
+            int limite = 380;
+
+            if(ano.equals("2022")){
+                limite = 250;
+            }
+
+            for (; i <= limite; i++) {
+                if(ano.equals("2016") && i == 378){
                     continue;
                 }
                 LOGGER.info("numero da partida a ser buscada : " + i);
-                BotInfoPartida infoPartida = new BotInfoPartida("urlSerieA", "2022", i);
+                BotInfoPartida infoPartida = new BotInfoPartida(url, ano, i);
                 InfoPartida partida = infoPartida.getInfoPartida();
-                partida.setCompeticao(brasileiro2021);
+                partida.setCompeticao(competicao);
                 this.repository.save(partida);
                 LOGGER.info("Confronto : " + infoPartida.getMandante() + " x " + infoPartida.getVisitante());
                 LOGGER.info("Salvo Com Sucesso!");
             }
             LOGGER.info("Total de Jogos no Banco de Dados : " + (i - 1));
-            LOGGER.info("Jogos referentes a 1ª até a " + (i / 10) + "ª Rodada do Campeonato Brasileiro 2022");
+            LOGGER.info("Jogos referentes a 1ª até a " + (i / 10) + "ª Rodada do" + nomeCompeticao);
         } catch (Exception e) {
             LOGGER.error("Erro : " + e.getMessage());
-            save();
+            save(nomeCompeticao, url, ano);
         }
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //save();
+        for(int i = 2019; i<= 2022; i++){
+        String ano = Integer.toString(i);
+        save("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE A - "+ano, "urlSerieA", ano);
+        }
         //carregarCampoId();
     }
 }

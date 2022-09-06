@@ -20,21 +20,18 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
                                            @Param("ultimoJogo") Long ultimoJogo);
 
 
-    @Query("select i from info_partidas i where i.dataPartida like %:ano " +
-            "and i.timeMandante = :timeA " +
-            "and i.timeVisitante = :timeB " +
-            "or i.timeMandante = :timeB " +
-            "and i.timeVisitante = :timeA")
+    @Query("SELECT i from info_partidas i WHERE i.dataPartida LIKE %:ano AND (i.timeMandante = :timeA or i.timeVisitante = :timeA) " +
+            "AND ( i.timeMandante = :timeB OR i.timeVisitante = :timeB)")
     List<InfoPartida> findConfrontos(@Param("ano") String ano,
                                      @Param("timeA") String timeA,
                                      @Param("timeB") String timeB);
 
 
+
+
     @Query("select i from info_partidas i where i.competicao.id = :idCompeticao " +
-            "and i.timeMandante = :timeA " +
-            "and i.timeVisitante = :timeB " +
-            "or i.timeMandante = :timeB " +
-            "and i.timeVisitante = :timeA")
+            "AND (i.timeMandante = :timeA OR i.timeVisitante = :timeA) " +
+            "AND (i.timeMandante = :timeB OR i.timeVisitante = :timeB)")
     List<InfoPartida> findConfrontosByCompeticao(@Param("idCompeticao") Long idCompeticao,
                                                  @Param("timeA") String timeA,
                                                  @Param("timeB") String timeB);
@@ -44,6 +41,9 @@ public interface InfoPartidaRepository extends JpaRepository<InfoPartida, Long> 
             "and i.numeroPartida = :numeroPartida")
     Optional<InfoPartida> findPartidaByNumeroAndCompeticao(@Param("numeroPartida") Long numeroPartida,
                                                           @Param("idCompeticao") Long idCompeticao);
+
+    @Query("select i from info_partidas i where i.competicao.id = :idCompeticao")
+    List<InfoPartida> findAllByCompeticao(@Param("idCompeticao") Long idCompeticao);
 
 
 }

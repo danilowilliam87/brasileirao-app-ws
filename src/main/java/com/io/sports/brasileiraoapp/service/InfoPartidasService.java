@@ -57,4 +57,8 @@ public class InfoPartidasService {
         return this.competicaoRepository.findByNome(nome)
                 .orElseThrow(() -> new RecursoInexistenteException("recurso inexiste :("));
     }
+
+    public List<InfoPartida> findAllByCompeticao(Long idCompeticao){
+        return this.infoPartidasRepository.findAllByCompeticao(idCompeticao);
+    }
 }
