@@ -8,6 +8,7 @@ import com.io.sports.brasileiraoapp.repository.InfoPartidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,5 +61,16 @@ public class InfoPartidasService {
 
     public List<InfoPartida> findAllByCompeticao(Long idCompeticao){
         return this.infoPartidasRepository.findAllByCompeticao(idCompeticao);
+    }
+
+    public List<Integer> getAnosCompeticoes(){
+        List<Competicao> competicoes = this.competicaoRepository.findAll();
+        List<Integer> anos = new ArrayList<>();
+
+        for(int i = 0; i < 10; i++){
+            int anoCompeticao = Integer.parseInt(competicoes.get(i).getNome().substring(competicoes.get(i).getNome().length() - 4));
+            anos.add(anoCompeticao);
+        }
+        return anos;
     }
 }

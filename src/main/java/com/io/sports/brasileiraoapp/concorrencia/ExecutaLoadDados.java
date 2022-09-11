@@ -78,10 +78,13 @@ public class ExecutaLoadDados implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        for(int i = 2019; i<= 2022; i++){
-        String ano = Integer.toString(i);
-        save("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE A - "+ano, "urlSerieA", ano);
-        }
+        //for(int i = 2013; i<= 2022; i++){
+        //String ano = Integer.toString(i);
+        //save("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE B - "+ano, "urlSerieB", ano);
+        //}
         //carregarCampoId();
+        //int anoCompeticao = 2016;
+        // String ano = Integer.toString(anoCompeticao);
+        // save("CAMPEONATO BRASILEIRO DE FUTEBOL - SÉRIE B - "+ano, "urlSerieB", ano);
     }
 }
